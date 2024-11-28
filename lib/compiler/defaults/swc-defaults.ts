@@ -11,12 +11,14 @@ export const swcDefaultsFactory = (
       ? configuration.compilerOptions.builder.options 
       : {};
 
-  // SWC编译器选项
+  // Define SWC compiler options with sensible defaults
   const swcOptions = {
+    // Enable source maps based on TypeScript config
     sourceMaps: tsOptions?.sourceMap || (tsOptions?.inlineSourceMap && 'inline'),
     module: { type: 'commonjs' },
     jsc: {
-      target: 'es2021',
+      // Use modern ES2021 target for better performance
+      target: 'es2021', 
       parser: {
         syntax: 'typescript',
         decorators: true,
@@ -28,6 +30,7 @@ export const swcDefaultsFactory = (
         useDefineForClassFields: false,
       },
       keepClassNames: true,
+      // Preserve TypeScript path mappings
       baseUrl: tsOptions?.baseUrl,
       paths: tsOptions?.paths,
     },
@@ -35,17 +38,21 @@ export const swcDefaultsFactory = (
     swcrc: true,
   };
 
-  // CLI选项
+  // CLI build configuration
   const cliOptions = {
+    // Use TypeScript outDir or default to 'dist'
     outDir: tsOptions?.outDir ? convertPath(tsOptions.outDir) : 'dist',
+    // Source files location with fallback
     filenames: [configuration?.sourceRoot ?? 'src'],
+    // Default CLI behavior
     sync: false,
-    extensions: ['.js', '.ts'],
+    extensions: ['.js', '.ts', '.tsx'],
     copyFiles: false,
     includeDotfiles: false,
     quiet: false,
     watch: false,
     stripLeadingPaths: true,
+    // Override defaults with any builder options
     ...builderOptions,
   };
 
