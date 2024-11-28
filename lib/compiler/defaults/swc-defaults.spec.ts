@@ -33,7 +33,7 @@ describe('swcDefaultsFactory', () => {
         outDir: 'dist',
         filenames: ['src'],
         sync: false,
-        extensions: ['.js', '.ts'],
+        extensions: ['.js', '.ts', '.tsx'],
         copyFiles: false,
         includeDotfiles: false,
         quiet: false,
